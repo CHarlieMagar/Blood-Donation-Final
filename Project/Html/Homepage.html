@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Management System</title>
+    <link rel="stylesheet" href="../css/HomeStyle2.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Blood Donation Management System</div>
+        <div class="links">
+            <a href="Homepage.html">Home</a>
+            <a href="RequestBlood.html">Request Blood</a>
+            <a href="Donorlist.html">Donor List</a>
+            <a href="Donorform.html">Be a Donor</a>
+            <button class="navbar-button" onclick="location.href='login.html'">Admin</button>
+        </div>
+    </div>
+    <div class="banner">
+        <img src="../Hero images/Baby.png" alt="Be a Donor, Be a Hero" class="banner-image">
+        <div class="banner-content">
+            <h1>BE A DONOR BE A HERO</h1>
+            <p>SHARE YOUR STORY, SHOW YOUR SUPPORT, INSPIRE OTHERS. #BloodDonorHero</p>
+        </div>
+    </div>
+<div class="contact-donor">
+    <h2>Contact Donor</h2>
+    <div class="donor-list" id="donor-list">
+        <?php
+        include 'db_connection.php';
+        
+        // Fetch 3 random donors from the database to display
+        $sql = "SELECT * FROM donors LIMIT 3";  // Limiting to 3 records
+        $result = $conn->query($sql);
+
+        if (!$result) {
+            die("Invalid query : " . $conn->error);
+        }
+
+        // Store the donor data into an array
+        $donors = [];
+        while ($row = $result->fetch_assoc()) {
+            $donors[] = $row;
+        }
+
+        // Close the database connection
+        $conn->close();
+
+        // Output the donor cards in HTML
+        foreach ($donors as $donor) {
+            echo '<div class="donor-card">';
+            echo '<p>Name: ' . $donor["name"] . '</p>';
+            echo '<p>Gender: ' . $donor["gender"] . '</p>';
+            echo '<p>Blood Group: ' . $donor["blood_group"] . '</p>';
+            echo '<p>Mobile No: ' . $donor["mobile_no"] . '</p>';
+            echo '<p>Age: ' . $donor["age"] . '</p>';
+            echo '<p>Address: ' . $donor["address"] . '</p>';
+            echo '<p>You can contact through the phone number.</p>';
+            echo '</div>'; // End donor-card div
+        }
+        ?>
+    </div>
+</div>
+
+    <div class="register-form">
+        <h2>Register for Emergency Blood Donation</h2>
+        <form action="emergency.php" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input 
+            id="phoneForm"
+            type="text" 
+            placeholder="Phone number" 
+            name="phone" 
+            required 
+            pattern="^\+?[1-9]\d{1,14}$" 
+            title="Enter a valid phone number"
+          >
+            <input type="email" name="email" placeholder="Email Address" required>
+            <select id="blood-require" name="blood-require" required>
+                <option value="" disabled selected>Select the reason for blood requirement</option>
+                <option value="accident">Accident</option>
+                <option value="surgery">Surgery</option>
+                <option value="medical">Medical treatment</option>
+                <option value="other">Other</option>
+            </select>
+            <select name="blood-type" required>
+                <option value="" disabled selected>Blood Type</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+            <textarea name="message" placeholder="Message" rows="4" required></textarea>
+            <button type="submit" name="register">Register</button>
+        </form>
+    </div>
+    <div class="footer">
+        <div class="column">
+            <h3>Contact Us</h3>
+            <p>Phone: 123-456-7890</p>
+            <p>Email: info@blooddonation.com</p>
+        </div>
+        <div class="column">
+            <h3>Quick Links</h3>
+            <p><a href="Homepage.html">Home</a></p>
+            <p><a href="Homepage.html">About Us</a></p>
+            <p><a href="Homepage.html">Contact</a></p>
+        </div>
+        <div class="column">
+            <h3>Follow Us</h3>
+            <p><a href="https://www.facebook.com/sushant.thapamagar.9822">Facebook</a></p>
+            <p><a href="https://x.com/">Twitter</a></p>
+            <p><a href="https://www.instagram.com/sushant_magar12?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram</a></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('phoneForm').addEventListener('submit', function(event) {
+          const phoneInput = event.target.number.value;
+          
+          // Regular Expression for validation
+          const phoneRegex = /^\+?[1-9]\d{1,14}$/; // Supports E.164 format
+          
+          if (!phoneRegex.test(phoneInput)) {
+            event.preventDefault(); // Prevent form submission
+            alert('Please enter a valid phone number, e.g., +1234567890 or 1234567890');
+          }
+        });
+      </script>
+</body>
+</html>

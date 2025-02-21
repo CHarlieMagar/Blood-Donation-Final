@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Management System</title>
+    <link rel="stylesheet" href="../css/Donor.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Blood Donation Management System</div>
+        <div class="links">
+            <a href="Homepage.html">Home</a>
+            <a href="Homepage.html">About Us</a>
+            <a href="Donorlist.html">Donor List</a>
+            <a href="Donorform.html">Be a Doner</a>
+            <button class="navbar-button" onclick="location.href='Login.html'">Login</button>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Donor List</h1>
+        
+        <!-- Search Form -->
+        <form method="GET" action="">
+            <label for="blood_type">Search by Blood Group:</label>
+            <input type="text" id="blood_type" name="blood_type" placeholder="Enter blood group (e.g., A+)" required>
+            <button type="submit">Search</button>
+        </form>
+    
+        <div class="donor-list">
+            <?php
+            include 'db_connection.php';
+    
+            // Check if a search term is provided
+            $bloodType = isset($_GET['blood_type']) ? $_GET['blood_type'] : '';
+    
+            // Modify the query to filter by blood group if a search term is provided
+            if (!empty($bloodType)) {
+                $sql = "SELECT * FROM donors WHERE blood_group LIKE ?";
+                $stmt = $conn->prepare($sql);
+                $searchTerm = "%{$bloodType}%";
+                $stmt->bind_param("s", $searchTerm);
+                $stmt->execute();
+                $result = $stmt->get_result();
+            } else {
+                $sql = "SELECT * FROM donors";
+                $result = $conn->query($sql);
+            }
+    
+            if (!$result) {
+                die("Invalid query: " . $conn->error);
+            }
+    
+            // Loop through the donors and display their information
+            while ($row = $result->fetch_assoc()) {
+                echo '<div class="donor-card">';
+                echo '<p>Name: ' . htmlspecialchars($row["name"]) . '</p>';
+                echo '<p>Gender: ' . htmlspecialchars($row["gender"]) . '</p>';
+                echo '<p>Blood Group: ' . htmlspecialchars($row["blood_group"]) . '</p>';
+                echo '<p>Mobile No: ' . htmlspecialchars($row["mobile_no"]) . '</p>';
+                echo '<p>Age: ' . htmlspecialchars($row["age"]) . '</p>';
+                echo '<p>Email: ' . htmlspecialchars($row["email"]) . '</p>';
+                echo '<p>Address: ' . htmlspecialchars($row["address"]) . '</p>';
+                echo '<button>Request</button>';
+                echo '</div>'; // End donor-card div
+            }
+    
+            // Close the statement if it was used
+            if (isset($stmt)) {
+                $stmt->close();
+            }
+    
+            // Close the database connection
+            $conn->close();
+            ?>
+        </div>
+    </div>
+        </div>
+    <div class="footer">
+        <h3>Blood Donation Management System</h3>
+        <div class="contact-info">
+            <p>Address: Blood Donation Management Team, Kathmandu, Nepal</p>
+            <p>Email: info@blooddonation.com</p>
+            <p>Phone: +977-123456789</p>
+        </div>
+    </div>
+</body>
+</html>

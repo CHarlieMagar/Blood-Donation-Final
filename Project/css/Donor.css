@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar .navbar-button {
+    background-color: white;
+    color: red;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.navbar .navbar-button:hover {
+    background-color: darkred;
+    color: white;
+}
+
+.container {
+    padding: 20px;
+}
+
+.h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.donor-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.donor-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.donor-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.donor-card button {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.donor-card button:hover {
+    background-color: darkred;
+}
+
+.footer {
+    background-color: red;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer .contact-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer .contact-info p {
+    margin: 5px 0;
+}
+
+
+.searchbox {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9; /* Light background color for contrast */
+    border: 2px solid #ddd; /* Subtle border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    max-width: 400px; /* Limit width for better design */
+    margin: 20px auto; /* Center the searchbox */
+}
+
+.searchbox input[type="text"] {
+    width: 100%; /* Full width */
+    padding: 10px; /* Add some space */
+    margin: 10px 0; /* Space between elements */
+    border: 1px solid #ccc; /* Subtle border for the input */
+    border-radius: 5px; /* Rounded corners for input */
+    font-size: 16px; /* Comfortable font size */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+}
+
+.searchbox button {
+    padding: 10px 20px; /* Add some padding */
+    background-color: #007BFF; /* Bright blue background */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners for button */
+    font-size: 16px; /* Comfortable font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.searchbox button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
